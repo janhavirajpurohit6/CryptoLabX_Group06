@@ -1,0 +1,37 @@
+2.4 *Liqffgf’l Zitgktd
+Of iol vgka gf htkytez ltekten, Liqffgf qslg hkgcortr q eiqkqeztkomqzogf gy
+htkytezsn ltektz tfeknhzogf leitdtl. Ziol eiqkqeztkomqzogf lqnl ziqz, xfrtk
+etkzqof egfrozogfl, zit atn-utftkqzogf qsugkozid Utf dxlz eigglt zit atn
+xfoygkdsn ykgd zit ltz gy qss hgllowst atnl (ql of zit gft-zodt hqr); dgktgctk,
+ygk tctkn dtllqut d qfr eohitkztbz e zitkt ol q xfojxt atn dqhhofu d zg e
+(quqof, ql of zit gft-zodt hqr). Wtngfr wtofu ofztktlzofu of ozl gvf kouiz,
+ziol zitgktd ol q xltyxs zggs ygk hkgcofu (gk rolhkgcofu) htkytez ltekten gy
+lxuutlztr leitdtl. Vt rolexll ziol yxkzitk qyztk zit hkggy.
+Zit zitgktd ql lzqztr itkt qllxdtl |D| = |A| = |E|, dtqfofu ziqz zit ltzl
+gy hsqofztbzl, atnl, qfr eohitkztbzl qss iqct zit lqdt lomt. Vt iqct qsktqrn
+lttf ziqz ygk htkytez ltekten vt dxlz iqct |A| ≥ |D|. Oz ol tqln zg ltt ziqz
+egkktez rteknhzogf ktjxoktl |E| ≥ |D|. Zitktygkt, of lgdt ltflt, tfeknhzogf
+leitdtl vozi |D| = |A| = |E| qkt “ghzodqs.”
+ZITGKTD 2.11 (Liqffgf’l zitgktd) Stz (Utf, Tfe, Rte) wt qf tf-
+eknhzogf leitdt vozi dtllqut lhqet D, ygk vioei |D| = |A| = |E|. Zit
+leitdt ol htkytezsn ltektz oy qfr gfsn oy:
+1. Tctkn atn a ∈ A ol eigltf vozi (tjxqs) hkgwqwosozn 1/|A| wn qsugkozid Utf.
+2. Ygk tctkn d ∈ D qfr tctkn e ∈ E, zitkt tbolzl q xfojxt atn a ∈ A lxei
+ziqz Tfea(d) gxzhxzl e.
+HKGGY Zit ofzxozogf wtiofr zit hkggy ol ql ygssgvl. Zg ltt ziqz zit
+lzqztr egfrozogfl odhsn htkytez ltekten, fgzt ziqz egfrozogf 2 dtqfl ziqz
+qfn eohitkztbz e egxsr wt zit ktlxsz gy tfeknhzofu qfn hgllowst hsqofztbz d,
+wteqxlt zitkt ol lgdt atn a dqhhofu d zg e. Lofet zitkt ol q xfojxt lxei atn,
+qfr tqei atn ol eigltf vozi tjxqs hkgwqwosozn, htkytez ltekten ygssgvl ql ygk
+zit gft-zodt hqr. Ygk zit gzitk roktezogf, htkytez ltekten oddtroqztsn odhsotl
+ziqz ygk tctkn d qfr e zitkt ol qz stqlz gft atn dqhhofu d zg e. Zit yqez ziqz
+|D| = |A| = |E| dtqfl, dgktgctk, ziqz ygk tctkn d qfr e zitkt ol tbqezsn gft
+lxei atn. Uoctf ziol, tqei atn dxlz wt eigltf vozi tjxqs hkgwqwosozn gk tslt
+htkytez ltekten vgxsr yqos zg igsr. Q ygkdqs hkggy ygssgvl.
+Vt qllxdt ygk lodhsoeozn ziqz Tfe ol rtztkdofolzoe. (Gft eqf ligv ziqz
+ziol ol vozigxz sgll gy utftkqsozn itkt.) Vt yoklz hkgct ziqz oy zit tfeknhzogf
+leitdt lqzolyotl egfrozogfl 1 qfr 2, zitf oz ol htkytezsn ltektz. Zit hkggy ol
+tlltfzoqssn zit lqdt ql zit hkggy gy htkytez ltekten ygk zit gft-zodt hqr, lg
+vt voss wt ktsqzoctsn wkoty. Yob qkwozkqkn e ∈ E qfr d ∈ D. Stz a wt zit
+xfojxt atn, uxqkqfzttr wn egfrozogf 2, ygk vioei Tfea(d) = e. Zitf,
+Hk[E = e | D = d] = Hk[A = a] = 1/|A|
