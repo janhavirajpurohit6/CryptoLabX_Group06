@@ -1,0 +1,225 @@
+
+
+Skip to content
+Using Malaviya National Institute of Technology, Jaipur Mail with screen readers
+1 of 193
+(no subject)
+Inbox
+ANEEK CHAKRABORTY <2025ucp1903@mnit.ac.in>
+	
+9:40 AM (5 minutes ago)
+	
+	
+to me
+
+Yes — let's make it as beginner-friendly as possible, with the explanation written directly beside the code. I'll also keep the 3 pivot implementations separate, so you can understand each one individually.
+
+1. First element as pivot
+
+#include <iostream>
+using namespace std;
+
+int comparisons = 0;
+int swaps = 0;
+int calls = 0;
+
+int partitionFirst(int a[], int low, int high)
+{
+    int pivot = a[low]; // First element is pivot
+    int i = low + 1; // Start from next element
+    int j = high; // Start from last element
+
+    while (i <= j)
+    {
+        while (i <= high && a[i] <= pivot)
+        {
+            comparisons++; // Comparison
+            i++;
+        }
+
+        while (j >= low && a[j] > pivot)
+        {
+            comparisons++; // Comparison
+            j--;
+        }
+
+        if (i < j)
+        {
+            swap(a[i], a[j]); // Swap elements
+            swaps++;
+        }
+    }
+
+    swap(a[low], a[j]); // Put pivot in correct place
+    swaps++;
+
+    return j; // Return pivot position
+}
+
+void quickSortFirst(int a[], int low, int high)
+{
+    calls++; // Count recursive call
+
+    if (low < high)
+    {
+        int p = partitionFirst(a, low, high);
+
+        quickSortFirst(a, low, p - 1); // Left side
+        quickSortFirst(a, p + 1, high); // Right side
+    }
+}
+
+
+---
+
+2. Last element as pivot
+
+int partitionLast(int a[], int low, int high)
+{
+    int pivot = a[high]; // Last element is pivot
+    int i = low - 1; // Position for smaller element
+
+    for (int j = low; j < high; j++)
+    {
+        comparisons++; // Count comparison
+
+        if (a[j] < pivot)
+        {
+            i++;
+
+            swap(a[i], a[j]); // Put smaller element left
+            swaps++;
+        }
+    }
+
+    swap(a[i + 1], a[high]); // Put pivot in correct place
+    swaps++;
+
+    return i + 1; // Return pivot position
+}
+
+void quickSortLast(int a[], int low, int high)
+{
+    calls++; // Count recursive call
+
+    if (low < high)
+    {
+        int p = partitionLast(a, low, high);
+
+        quickSortLast(a, low, p - 1); // Sort left
+        quickSortLast(a, p + 1, high); // Sort right
+    }
+}
+
+
+---
+
+3. Middle element as pivot
+
+int partitionMiddle(int a[], int low, int high)
+{
+    int mid = (low + high) / 2; // Find middle
+
+    int pivot = a[mid]; // Middle element is pivot
+
+    swap(a[mid], a[high]); // Move pivot to end
+    swaps++;
+
+    int i = low - 1;
+
+    for (int j = low; j < high; j++)
+    {
+        comparisons++; // Count comparison
+
+        if (a[j] < pivot)
+        {
+            i++;
+
+            swap(a[i], a[j]); // Swap
+            swaps++;
+        }
+    }
+
+    swap(a[i + 1], a[high]); // Put pivot correctly
+    swaps++;
+
+    return i + 1;
+}
+
+void quickSortMiddle(int a[], int low, int high)
+{
+    calls++; // Count recursive call
+
+    if (low < high)
+    {
+        int p = partitionMiddle(a, low, high);
+
+        quickSortMiddle(a, low, p - 1); // Sort left
+        quickSortMiddle(a, p + 1, high);// Sort right
+    }
+}
+
+Simple main() to test them
+
+int main()
+{
+    int a[1000];
+    int n = 100;
+
+    // Make a simple array
+    for (int i = 0; i < n; i++)
+        a[i] = rand() % 1000;
+
+
+    // -------- FIRST PIVOT --------
+
+    comparisons = 0;
+    swaps = 0;
+    calls = 0;
+
+    quickSortFirst(a, 0, n - 1);
+
+    cout << "FIRST PIVOT\n";
+    cout << "Comparisons = " << comparisons << endl;
+    cout << "Swaps = " << swaps << endl;
+    cout << "Calls = " << calls << endl;
+
+
+    // -------- LAST PIVOT --------
+
+    comparisons = 0;
+    swaps = 0;
+    calls = 0;
+
+    quickSortLast(a, 0, n - 1);
+
+    cout << "\nLAST PIVOT\n";
+    cout << "Comparisons = " << comparisons << endl;
+    cout << "Swaps = " << swaps << endl;
+    cout << "Calls = " << calls << endl;
+
+
+    // -------- MIDDLE PIVOT --------
+
+    comparisons = 0;
+    swaps = 0;
+    calls = 0;
+
+    quickSortMiddle(a, 0, n - 1);
+
+    cout << "\nMIDDLE PIVOT\n";
+    cout << "Comparisons = " << comparisons << endl;
+    cout << "Swaps = " << swaps << endl;
+    cout << "Calls = " << calls << endl;
+
+    return 0;
+}
+
+One correction: if you need to test 100, 500, 1000 + random/sorted/reverse and compare execution time, we can make the main() very simple too, without making the Quick Sort code complicated.
+
+Regards,
+Aneek Chakraborty
+1st Year B.Tech, Computer Science & Engineering
+Malaviya National Institute of Technology (MNIT), Jaipur.
+Contact No +91 7679516735
+
