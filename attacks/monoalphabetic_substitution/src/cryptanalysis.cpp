@@ -5,10 +5,6 @@
 
 using namespace std;
 
-// --------------------------------------------------
-// Frequency Analysis
-// --------------------------------------------------
-
 void frequency_analysis(string text)
 {
     int count[26] = {0};
@@ -18,28 +14,25 @@ void frequency_analysis(string text)
     {
         if (isalpha(text[i]))
         {
-            char ch = toupper(text[i]);
-            count[ch - 'A']++;
+            count[toupper(text[i]) - 'A']++;
             total++;
         }
     }
 
-    cout << "\nLETTER FREQUENCY\n";
-    cout << "-------------------------\n";
+    cout << "\nFrequency Analysis\n";
 
-    // Display in descending order
     bool used[26] = {false};
 
     for (int i = 0; i < 26; i++)
     {
-        int biggest = -1;
+        int max = -1;
         int pos = -1;
 
         for (int j = 0; j < 26; j++)
         {
-            if (!used[j] && count[j] > biggest)
+            if (!used[j] && count[j] > max)
             {
-                biggest = count[j];
+                max = count[j];
                 pos = j;
             }
         }
@@ -47,56 +40,20 @@ void frequency_analysis(string text)
         if (pos != -1 && count[pos] > 0)
         {
             used[pos] = true;
+            double percentage = count[pos] * 100.0 / total;
 
-            double percentage = 0;
-
-            if (total > 0)
-                percentage = (count[pos] * 100.0) / total;
-
-            cout << char('A' + pos)
-                 << " : " << count[pos]
-                 << " (" << percentage << "%)" << endl;
-        }
-    }
-
-    cout << "\nMost frequent letters:\n";
-
-    for (int i = 0; i < 3; i++)
-    {
-        int biggest = -1;
-        int pos = -1;
-
-        for (int j = 0; j < 26; j++)
-        {
-            if (count[j] > biggest)
-            {
-                biggest = count[j];
-                pos = j;
-            }
-        }
-
-        if (pos != -1 && count[pos] > 0)
-        {
-            cout << char('A' + pos) << endl;
-            count[pos] = -1;
+            cout << char('A' + pos) << " "
+                 << count[pos] << " "
+                 << percentage << "%\n";
         }
     }
 }
 
-
-// --------------------------------------------------
-// Word Frequency Analysis
-// --------------------------------------------------
-
 void word_frequency_analysis(string text)
 {
     string words[1000];
-    int counts[1000];
+    int count[1000] = {0};
     int n = 0;
-
-    for (int i = 0; i < 1000; i++)
-        counts[i] = 0;
-
     string word = "";
 
     for (int i = 0; i <= text.length(); i++)
@@ -105,104 +62,84 @@ void word_frequency_analysis(string text)
         {
             word += toupper(text[i]);
         }
-        else
+        else if (word.length() > 0)
         {
-            if (word.length() > 0)
+            int found = -1;
+
+            for (int j = 0; j < n; j++)
             {
-                int found = -1;
-
-                for (int j = 0; j < n; j++)
+                if (words[j] == word)
                 {
-                    if (words[j] == word)
-                    {
-                        found = j;
-                        break;
-                    }
+                    found = j;
+                    break;
                 }
-
-                if (found == -1)
-                {
-                    words[n] = word;
-                    counts[n] = 1;
-                    n++;
-                }
-                else
-                {
-                    counts[found]++;
-                }
-
-                word = "";
             }
+
+            if (found == -1)
+            {
+                words[n] = word;
+                count[n] = 1;
+                n++;
+            }
+            else
+            {
+                count[found]++;
+            }
+
+            word = "";
         }
     }
 
-    cout << "\nWORD FREQUENCY\n";
-    cout << "-------------------------\n";
+    cout << "\nWord Frequency Analysis\n";
 
     for (int i = 0; i < n; i++)
     {
-        cout << words[i] << " : " << counts[i] << endl;
+        if (count[i] > 1)
+            cout << words[i] << " " << count[i] << "\n";
     }
 
-    cout << "\nONE LETTER WORDS\n";
-
+    cout << "\nOne-letter words\n";
     for (int i = 0; i < n; i++)
-    {
         if (words[i].length() == 1)
-            cout << words[i] << " : " << counts[i] << endl;
-    }
+            cout << words[i] << "\n";
 
-    cout << "\nTWO LETTER WORDS\n";
-
+    cout << "\nTwo-letter words\n";
     for (int i = 0; i < n; i++)
-    {
         if (words[i].length() == 2)
-            cout << words[i] << " : " << counts[i] << endl;
-    }
+            cout << words[i] << "\n";
 
-    cout << "\nTHREE LETTER WORDS\n";
-
+    cout << "\nThree-letter words\n";
     for (int i = 0; i < n; i++)
-    {
         if (words[i].length() == 3)
-            cout << words[i] << " : " << counts[i] << endl;
-    }
+            cout << words[i] << "\n";
 
-    cout << "\nREPEATED WORDS\n";
-
+    cout << "\nRepeated words\n";
     for (int i = 0; i < n; i++)
-    {
-        if (counts[i] > 1)
-            cout << words[i] << " : " << counts[i] << endl;
-    }
+        if (count[i] > 1)
+            cout << words[i] << " " << count[i] << "\n";
 }
-
-
-// --------------------------------------------------
-// Pattern Analysis
-// --------------------------------------------------
 
 string get_pattern(string word)
 {
-    int numbers[50];
-    int nextNumber = 0;
+    int number[26];
 
-    for (int i = 0; i < 50; i++)
-        numbers[i] = -1;
+    for (int i = 0; i < 26; i++)
+        number[i] = -1;
 
+    int next = 0;
     string pattern = "";
 
     for (int i = 0; i < word.length(); i++)
     {
-        int value = word[i] - 'A';
+        int x = word[i] - 'A';
 
-        if (numbers[value] == -1)
+        if (number[x] == -1)
         {
-            numbers[value] = nextNumber;
-            nextNumber++;
+            number[x] = next;
+            next++;
         }
 
-        pattern += char('0' + numbers[value]);
+        pattern += char('0' + number[x]);
     }
 
     return pattern;
@@ -212,8 +149,7 @@ void pattern_analysis(string text)
 {
     string word = "";
 
-    cout << "\nWORD PATTERNS\n";
-    cout << "-------------------------\n";
+    cout << "\nPattern Analysis\n";
 
     for (int i = 0; i <= text.length(); i++)
     {
@@ -225,7 +161,7 @@ void pattern_analysis(string text)
         {
             if (word.length() > 1)
             {
-                cout << word << " : " << get_pattern(word) << endl;
+                cout << word << " " << get_pattern(word) << "\n";
             }
 
             word = "";
@@ -233,59 +169,35 @@ void pattern_analysis(string text)
     }
 }
 
-
-// --------------------------------------------------
-// Apply Current Substitution
-// key[cipher letter] = plaintext letter
-// '-' means unknown
-// --------------------------------------------------
-
 string apply_substitution(string text, char key[])
 {
     string result = "";
 
     for (int i = 0; i < text.length(); i++)
     {
-        char ch = text[i];
-
-        if (isalpha(ch))
+        if (isalpha(text[i]))
         {
-            ch = toupper(ch);
+            char ch = toupper(text[i]);
 
-            if (key[ch - 'A'] != '-')
-                result += key[ch - 'A'];
-            else
+            if (key[ch - 'A'] == '-')
                 result += '_';
+            else
+                result += key[ch - 'A'];
         }
         else
         {
-            result += ch;
+            result += text[i];
         }
     }
 
     return result;
 }
 
-
-// --------------------------------------------------
-// Display Partial Plaintext
-// --------------------------------------------------
-
 void display_partial_plaintext(string text, char key[])
 {
-    cout << "\nPARTIAL PLAINTEXT\n";
-    cout << "-------------------------\n";
-
-    string result = apply_substitution(text, key);
-
-    cout << result << endl;
+    cout << "\nPartial Plaintext\n";
+    cout << apply_substitution(text, key) << "\n";
 }
-
-
-// --------------------------------------------------
-// Verify Solution
-// plaintext + recovered key -> ciphertext
-// --------------------------------------------------
 
 bool verify_solution(string plaintext, string ciphertext, char key[])
 {
@@ -293,43 +205,27 @@ bool verify_solution(string plaintext, string ciphertext, char key[])
 
     for (int i = 0; i < plaintext.length(); i++)
     {
-        char ch = plaintext[i];
-
-        if (isalpha(ch))
+        if (isalpha(plaintext[i]))
         {
-            ch = toupper(ch);
-
-            bool found = false;
+            char ch = toupper(plaintext[i]);
 
             for (int j = 0; j < 26; j++)
             {
                 if (key[j] == ch)
                 {
                     result += char('A' + j);
-                    found = true;
                     break;
                 }
             }
-
-            if (!found)
-                result += ch;
         }
         else
         {
-            result += ch;
+            result += plaintext[i];
         }
     }
 
-    if (result == ciphertext)
-        return true;
-
-    return false;
+    return result == ciphertext;
 }
-
-
-// --------------------------------------------------
-// Main
-// --------------------------------------------------
 
 int main()
 {
@@ -338,11 +234,10 @@ int main()
     if (!file)
     {
         cout << "Could not open ciphertext.txt\n";
-        return 0;
+        return 1;
     }
 
-    string ciphertext;
-    string line;
+    string ciphertext, line;
 
     while (getline(file, line))
     {
@@ -352,77 +247,34 @@ int main()
 
     file.close();
 
-    cout << "MONOALPHABETIC SUBSTITUTION CRYPTANALYSIS\n";
-    cout << "==========================================\n";
-
-    cout << "\nCIPHERTEXT:\n";
-    cout << ciphertext << endl;
-
     frequency_analysis(ciphertext);
-
     word_frequency_analysis(ciphertext);
-
     pattern_analysis(ciphertext);
 
-    // Current guesses
-    // key[ciphertext letter] = plaintext letter
     char key[26];
 
     for (int i = 0; i < 26; i++)
         key[i] = '-';
 
-    // --------------------------------------------------
-    // Enter substitutions manually
-    // Example:
-    // Q E
-    // W T
-    // --------------------------------------------------
+    char cipher, plain;
 
-    char cipherLetter;
-    char plainLetter;
+    cout << "\nEnter substitutions (0 0 to stop)\n";
 
     while (true)
     {
-        cout << "\nCurrent partial plaintext:\n";
-        display_partial_plaintext(ciphertext, key);
+        cin >> cipher >> plain;
 
-        cout << "\nEnter substitution (cipher plaintext)";
-        cout << "\nEnter 0 0 when finished: ";
-
-        cin >> cipherLetter >> plainLetter;
-
-        if (cipherLetter == '0' && plainLetter == '0')
+        if (cipher == '0' && plain == '0')
             break;
 
-        cipherLetter = toupper(cipherLetter);
-        plainLetter = toupper(plainLetter);
+        cipher = toupper(cipher);
+        plain = toupper(plain);
 
-        if (cipherLetter >= 'A' && cipherLetter <= 'Z' &&
-            plainLetter >= 'A' && plainLetter <= 'Z')
+        if (cipher >= 'A' && cipher <= 'Z' &&
+            plain >= 'A' && plain <= 'Z')
         {
-            key[cipherLetter - 'A'] = plainLetter;
-        }
-        else
-        {
-            cout << "Invalid input.\n";
-        }
-    }
-
-    cout << "\nFINAL RECOVERED PLAINTEXT\n";
-    cout << "==========================\n";
-
-    display_partial_plaintext(ciphertext, key);
-
-    cout << "\nRECOVERED KEY\n";
-    cout << "==========================\n";
-
-    for (int i = 0; i < 26; i++)
-    {
-        if (key[i] != '-')
-        {
-            cout << char('A' + i)
-                 << " -> "
-                 << key[i] << endl;
+            key[cipher - 'A'] = plain;
+            display_partial_plaintext(ciphertext, key);
         }
     }
 
