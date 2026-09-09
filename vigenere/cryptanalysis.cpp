@@ -66,3 +66,42 @@ vector<int> find_factors(vector<int> distances) {
 
     return factors;
 }
+vector<int> kasiski_analysis(vector<int> factors) {
+    map<int, int> count;
+
+    for (int x : factors)
+        count[x]++;
+
+    vector<pair<int, int>> temp;
+
+    for (auto x : count)
+        temp.push_back({x.second, x.first});
+
+    sort(temp.rbegin(), temp.rend());
+
+    vector<int> candidates;
+
+    for (auto x : temp)
+        candidates.push_back(x.second);
+
+    return candidates;
+}
+
+double calculate_ic(string group) {
+    int n = group.length();
+
+    if (n <= 1)
+        return 0;
+
+    int freq[26] = {0};
+
+    for (char c : group)
+        freq[c - 'A']++;
+
+    int sum = 0;
+
+    for (int i = 0; i < 26; i++)
+        sum += freq[i] * (freq[i] - 1);
+
+    return (double)sum / (n * (n - 1));
+}
