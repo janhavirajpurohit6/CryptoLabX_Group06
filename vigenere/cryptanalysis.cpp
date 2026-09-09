@@ -178,3 +178,32 @@ string find_key(vector<string> groups) {
 
     return key;
 }
+string vigenere_decrypt(string ciphertext, string key) {
+    string plaintext;
+
+    for (int i = 0; i < (int)ciphertext.length(); i++) {
+        int c = ciphertext[i] - 'A';
+        int k = key[i % key.length()] - 'A';
+
+        plaintext += char('A' + (c - k + 26) % 26);
+    }
+
+    return plaintext;
+}
+
+string vigenere_encrypt(string plaintext, string key) {
+    string ciphertext;
+
+    for (int i = 0; i < (int)plaintext.length(); i++) {
+        int p = plaintext[i] - 'A';
+        int k = key[i % key.length()] - 'A';
+
+        ciphertext += char('A' + (p + k) % 26);
+    }
+
+    return ciphertext;
+}
+
+bool verify(string original, string encrypted) {
+    return original == encrypted;
+}
