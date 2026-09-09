@@ -127,3 +127,54 @@ void frequency_analysis(vector<string> groups) {
             cout << char('A' + j) << " : " << freq[j] << "\n";
     }
 }
+int find_shift(string group) {
+    double english[26] = {
+        8.167, 1.492, 2.782, 4.253, 12.702, 2.228,
+        2.015, 6.094, 6.966, 0.153, 0.772, 4.025,
+        2.406, 6.749, 7.507, 1.929, 0.095, 5.987,
+        6.327, 9.056, 2.758, 0.978, 2.360, 0.150,
+        1.974, 0.074
+    };
+
+    int n = group.length();
+    double best = 999999999;
+    int bestShift = 0;
+
+    for (int shift = 0; shift < 26; shift++) {
+        int freq[26] = {0};
+
+        for (char c : group) {
+            int x = (c - 'A' - shift + 26) % 26;
+            freq[x]++;
+        }
+
+        double score = 0;
+
+        for (int i = 0; i < 26; i++) {
+            double expected = n * english[i] / 100;
+
+            if (expected > 0) {
+                score += (freq[i] - expected) *
+                         (freq[i] - expected) / expected;
+            }
+        }
+
+        if (score < best) {
+            best = score;
+            bestShift = shift;
+        }
+    }
+
+    return bestShift;
+}
+
+string find_key(vector<string> groups) {
+    string key;
+
+    for (string group : groups) {
+        int shift = find_shift(group);
+        key += char('A' + shift);
+    }
+
+    return key;
+}
