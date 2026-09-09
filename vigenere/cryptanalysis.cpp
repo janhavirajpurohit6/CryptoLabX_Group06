@@ -105,3 +105,25 @@ double calculate_ic(string group) {
 
     return (double)sum / (n * (n - 1));
 }
+vector<string> split_into_groups(string text, int keyLength) {
+    vector<string> groups(keyLength);
+
+    for (int i = 0; i < (int)text.length(); i++)
+        groups[i % keyLength] += text[i];
+
+    return groups;
+}
+
+void frequency_analysis(vector<string> groups) {
+    for (int i = 0; i < (int)groups.size(); i++) {
+        int freq[26] = {0};
+
+        for (char c : groups[i])
+            freq[c - 'A']++;
+
+        cout << "\nGroup " << i + 1 << ":\n";
+
+        for (int j = 0; j < 26; j++)
+            cout << char('A' + j) << " : " << freq[j] << "\n";
+    }
+}
