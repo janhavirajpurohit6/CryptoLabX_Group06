@@ -207,3 +207,92 @@ string vigenere_encrypt(string plaintext, string key) {
 bool verify(string original, string encrypted) {
     return original == encrypted;
 }
+int main() {
+
+    string ciphertext =
+        "QRBAI UWYOK ILBRZ XTUWL EGXSN VDXWR XMHXY FCGMW "
+        "WWSME LSXUZ "
+        "MKMFS BNZIF YEIEG RFZRX WKUFA XQEDX DTTHY NTBRJ "
+        "LHTAI KOCZX "
+        "QHBND ZIGZG PXARJ EDYSJ NUMKI FLBTN HWISW NVLFM "
+        "EGXAI AAWSL "
+        "FMHXR SGRIG HEQTU MLGLV BRSIL AEZSG XCMHT OWHFM "
+        "LWMRK HPRFB "
+        "ELWGF RUGPB HNBEM KBNVW HHUEA KILBN BMLHK XUGML "
+        "YQKHP RFBEL "
+        "EJYNV WSIJB GAXGO TPMXR TXFKI WUALB RGWIE GHWHG "
+        "AMEWW LTAEL "
+        "NUMRE UWTBL SDPRL YVRET LEEDF ROBEQ UXTHX ZYOZB "
+        "XLKAC KSOHN "
+        "VWXKS MAEPH IYQMM FSECH RFYPB BSQTX TPIWH GPXQD "
+        "FWTAI KNNBX "
+
+        "SIYKE TXTLV BTMQA LAGHG OTPMX RTXTH XSFYG WMVKH "
+        "LOIVU ALMLD "
+        "LTSYV WYNVW MQVXP XRVYA BLXDL XSMLW SUIOI IMELI "
+        "SOYEB HPHNR "
+        "WTVUI AKEYG WIETG WWBVM VDUMA EPAUA KXWHK MAUPA "
+        "MUKHQ PWKCX "
+        "EFXGW WSDDE OMLWL NKMWD FWTAM FAFEA MFZBN WIHYA "
+        "LXRWK MAMIK "
+        "GNGHJ UAZHM HGUAL YSULA ELYHJ BZMSI LAILH WWYIK "
+        "EWAHN PMLBN "
+        "NBVPJ XLBEF WRWGX KWIRH XWWGQ HRRXW IOMFY CZHZL "
+        "VXNVI OYZCM "
+        "YDDEY IPWXT MMSHS VHHXZ YEWNV OAOEL SMLSW KXXFX "
+        "STRVI HZLEF "
+        "JXDAS FIE";
+
+    ciphertext = clean_ciphertext(ciphertext);
+
+    vector<string> patterns =
+        find_repeated_patterns(ciphertext);
+
+    vector<int> distances =
+        calculate_distances(ciphertext, patterns);
+
+    vector<int> factors =
+        find_factors(distances);
+
+    vector<int> candidates =
+        kasiski_analysis(factors);
+
+    int keyLength = 12;
+
+    cout << "Estimated key length: "
+         << keyLength << "\n";
+
+    vector<string> groups =
+        split_into_groups(ciphertext, keyLength);
+
+    cout << "\nFrequency table:\n";
+    frequency_analysis(groups);
+
+    cout << "\nIndex of Coincidence:\n";
+
+    for (int i = 0; i < (int)groups.size(); i++) {
+        cout << "Group " << i + 1 << " : "
+             << calculate_ic(groups[i]) << "\n";
+    }
+
+    string key = find_key(groups);
+
+    cout << "\nRecovered key: "
+         << key << "\n";
+
+    string plaintext =
+        vigenere_decrypt(ciphertext, key);
+
+    cout << "\nRecovered plaintext:\n"
+         << plaintext << "\n";
+
+    string encrypted =
+        vigenere_encrypt(plaintext, key);
+
+    if (verify(ciphertext, encrypted))
+        cout << "\nVerification: SUCCESS\n";
+    else
+        cout << "\nVerification: FAILED\n";
+
+    return 0;
+}
