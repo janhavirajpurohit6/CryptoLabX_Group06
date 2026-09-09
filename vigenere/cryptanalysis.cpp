@@ -36,3 +36,33 @@ vector<string> find_repeated_patterns(string text) {
 
     return patterns;
 }
+vector<int> calculate_distances(string text, vector<string> patterns) {
+    vector<int> distances;
+
+    for (string pattern : patterns) {
+        vector<int> positions;
+
+        for (int i = 0; i <= (int)text.length() - (int)pattern.length(); i++) {
+            if (text.substr(i, pattern.length()) == pattern)
+                positions.push_back(i);
+        }
+
+        for (int i = 1; i < (int)positions.size(); i++)
+            distances.push_back(positions[i] - positions[i - 1]);
+    }
+
+    return distances;
+}
+
+vector<int> find_factors(vector<int> distances) {
+    vector<int> factors;
+
+    for (int d : distances) {
+        for (int i = 2; i <= 20; i++) {
+            if (d % i == 0)
+                factors.push_back(i);
+        }
+    }
+
+    return factors;
+}
