@@ -233,3 +233,74 @@ bool verify(
 
     return reEncrypted == ciphertext;
 }
+
+
+int main() {
+
+    string keyword = "MONARCHY";
+    string plaintext = "INSTRUMENTS";
+
+    // Step 1: Generate key matrix
+    vector<vector<char>> matrix =
+        generate_key_matrix(keyword);
+
+    cout << "Key Matrix:\n";
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            cout << matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+
+    // Step 2: Prepare plaintext
+    string prepared = prepare_plaintext(plaintext);
+
+
+    // Step 3: Create digraphs
+    vector<string> digraphs =
+        create_digraphs(prepared);
+
+    cout << "\nPrepared Digraphs:\n";
+
+    for (string pair : digraphs) {
+        cout << pair << " ";
+    }
+
+    cout << endl;
+
+
+    // Step 4: Encrypt
+    string ciphertext =
+        playfair_encrypt(digraphs, matrix);
+
+    cout << "\nCiphertext:\n";
+    cout << ciphertext << endl;
+
+
+    // Step 5: Decrypt
+    string decrypted =
+        playfair_decrypt(ciphertext, matrix);
+
+    cout << "\nDecrypted Text:\n";
+    cout << decrypted << endl;
+
+
+    // Step 6: Frequency analysis
+    digraph_frequency(ciphertext);
+
+
+    // Step 7: Verification
+    bool result =
+        verify(ciphertext, decrypted, matrix);
+
+    cout << "\nVerification:\n";
+
+    if (result)
+        cout << "SUCCESS" << endl;
+    else
+        cout << "FAILED" << endl;
+
+    return 0;
+}
