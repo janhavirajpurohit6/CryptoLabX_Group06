@@ -99,3 +99,23 @@ vector<string> create_digraphs(string plaintext) {
 
     return digraphs;
 }
+void find_position(
+    const vector<vector<char>>& matrix,
+    char ch,
+    int& row,
+    int& col
+) {
+    if (ch == 'J')
+        ch = 'I';
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (matrix[i][j] == ch) {
+                row = i;
+                col = j;
+                return;
+            }
+        }
+    }
+}
+
