@@ -216,3 +216,20 @@ void digraph_frequency(string ciphertext) {
         cout << x.first << " : " << x.second << endl;
     }
 }
+bool verify(
+    string ciphertext,
+    string decrypted,
+    const vector<vector<char>>& matrix
+) {
+    string reEncrypted = "";
+
+    vector<string> digraphs;
+
+    for (int i = 0; i < decrypted.length(); i += 2) {
+        digraphs.push_back(decrypted.substr(i, 2));
+    }
+
+    reEncrypted = playfair_encrypt(digraphs, matrix);
+
+    return reEncrypted == ciphertext;
+}
