@@ -68,3 +68,34 @@ string prepare_plaintext(string plaintext) {
     return result;
 }
 
+vector<string> create_digraphs(string plaintext) {
+    vector<string> digraphs;
+
+    int i = 0;
+
+    while (i < plaintext.length()) {
+
+        char first = plaintext[i];
+
+        // Last character
+        if (i + 1 >= plaintext.length()) {
+            digraphs.push_back(string(1, first) + "X");
+            i++;
+        }
+        else {
+            char second = plaintext[i + 1];
+
+            // Repeated letters
+            if (first == second) {
+                digraphs.push_back(string(1, first) + "X");
+                i++;
+            }
+            else {
+                digraphs.push_back(string(1, first) + string(1, second));
+                i += 2;
+            }
+        }
+    }
+
+    return digraphs;
+}
