@@ -188,3 +188,17 @@ string playfair_encrypt(
 
     return ciphertext;
 }
+
+string playfair_decrypt(
+    string ciphertext,
+    const vector<vector<char>>& matrix
+) {
+    string plaintext = "";
+
+    for (int i = 0; i < ciphertext.length(); i += 2) {
+        string pair = ciphertext.substr(i, 2);
+        plaintext += decrypt_pair(pair, matrix);
+    }
+
+    return plaintext;
+}
