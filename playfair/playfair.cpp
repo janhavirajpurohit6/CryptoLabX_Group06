@@ -119,3 +119,30 @@ void find_position(
     }
 }
 
+string encrypt_pair(
+    string pair,
+    const vector<vector<char>>& matrix
+) {
+    int r1, c1, r2, c2;
+
+    find_position(matrix, pair[0], r1, c1);
+    find_position(matrix, pair[1], r2, c2);
+
+    // Same row
+    if (r1 == r2) {
+        return string(1, matrix[r1][(c1 + 1) % 5]) +
+               string(1, matrix[r2][(c2 + 1) % 5]);
+    }
+
+    // Same column
+    else if (c1 == c2) {
+        return string(1, matrix[(r1 + 1) % 5][c1]) +
+               string(1, matrix[(r2 + 1) % 5][c2]);
+    }
+
+    // Rectangle rule
+    else {
+        return string(1, matrix[r1][c2]) +
+               string(1, matrix[r2][c1]);
+    }
+}
