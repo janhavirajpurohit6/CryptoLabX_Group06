@@ -202,3 +202,17 @@ string playfair_decrypt(
 
     return plaintext;
 }
+void digraph_frequency(string ciphertext) {
+    map<string, int> frequency;
+
+    for (int i = 0; i < ciphertext.length(); i += 2) {
+        string pair = ciphertext.substr(i, 2);
+        frequency[pair]++;
+    }
+
+    cout << "\nDigraph Frequency:\n";
+
+    for (auto x : frequency) {
+        cout << x.first << " : " << x.second << endl;
+    }
+}
