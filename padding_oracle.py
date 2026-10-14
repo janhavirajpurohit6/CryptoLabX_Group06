@@ -60,3 +60,29 @@ def attack(iv, ciphertext, check):
 
     return unpad(plaintext, BLOCK)
 
+def main():
+    # Sample encryption setup
+    key = get_random_bytes(16)
+    iv = get_random_bytes(16)
+    original = b"Hello World! This is my assignment."
+
+    ciphertext = AES.new(key, AES.MODE_CBC, iv).encrypt(
+        pad(original, BLOCK)
+    )
+
+    # The attack queries the oracle without receiving the key.
+    def check(data):
+        return oracle(key, data)
+
+    recovered = attack(iv, ciphertext, check)
+
+    print("Original plaintext:", original.decode())
+    print("Recovered plaintext:", recovered.decode())
+    print("Oracle queries:", queries)
+    print("Attack successful:", recovered == original)
+
+
+if __name__ == "__main__":
+    main()
+
+
