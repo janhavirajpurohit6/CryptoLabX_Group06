@@ -24,30 +24,43 @@ def oracle(key, data):
 
 
 
-# Padding oracle attack: recover one block
 def attack_block(previous, target, check):
-    intermediate = bytearray(BLOCK)
-    plaintext = bytearray(BLOCK)
+    intermediate = bytearray(16)
+    plaintext = bytearray(16)
 
-    for pos in range(BLOCK - 1, -1, -1):
-        padding = BLOCK - pos
+    for pos in range(15, -1, -1):
+        padding = 16 - pos
         modified = bytearray(previous)
 
-        for j in range(pos + 1, BLOCK):
+        for j in range(pos + 1, 16):
             modified[j] = intermediate[j] ^ padding
+
+        found = False
 
         for guess in range(256):
             modified[pos] = guess ^ padding
 
             if check(bytes(modified) + target):
+
+                # Verify the padding to avoid false positives
+                if pos > 0:
+                    test = bytearray(modified)
+                    test[pos - 1] ^= 1
+
+                    if not check(bytes(test) + target):
+                        continue
+
                 intermediate[pos] = guess
                 plaintext[pos] = guess ^ previous[pos]
+                found = True
                 break
-        else:
-            raise RuntimeError("Could not recover plaintext")
+
+        if not found:
+            raise RuntimeError(
+                f"Could not recover byte at position {pos}"
+            )
 
     return bytes(plaintext)
-
 
 def attack(iv, ciphertext, check):
     plaintext = b""
