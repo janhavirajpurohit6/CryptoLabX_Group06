@@ -47,3 +47,16 @@ def attack_block(previous, target, check):
             raise RuntimeError("Could not recover plaintext")
 
     return bytes(plaintext)
+
+
+def attack(iv, ciphertext, check):
+    plaintext = b""
+    previous = iv
+
+    for i in range(0, len(ciphertext), BLOCK):
+        target = ciphertext[i:i + BLOCK]
+        plaintext += attack_block(previous, target, check)
+        previous = target
+
+    return unpad(plaintext, BLOCK)
+
